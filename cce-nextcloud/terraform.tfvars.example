@@ -1,0 +1,58 @@
+
+# =============================================
+# Sample Terraform Variables for CCE Nextcloud Deployment
+# OpenTelekomCloud T-Cloud
+# =============================================
+#
+# INSTRUCTIONS:
+# 1. Copy this file to terraform.tfvars
+# 2. Fill in your actual values
+# 3. NEVER commit terraform.tfvars to version control
+#
+# =============================================
+# OpenTelekomCloud Authentication
+# =============================================
+# Replace these with your OTC credentials
+domain_name = "YOUR_DOMAIN_ID"
+project_name = "YOUR_PROJECT_NAME"
+access_key = "YOUR_ACCESS_KEY"
+secret_key = "YOUR_SECRET_KEY"
+region = "eu-nl"
+
+# =============================================
+# SSH Configuration
+# =============================================
+# Replace with your public SSH key
+ssh_public_key = "ssh-rsa YOUR_PUBLIC_KEY_HERE user@host"
+
+# =============================================
+# CCE Cluster Configuration
+# =============================================
+cce_cluster_flavor = "cce.s2.small"
+cce_cluster_name = "nextcloud-cce-cluster"
+
+# =============================================
+# Network Configuration
+# =============================================
+cce_vpc_cidr = "192.168.0.0/16"
+cce_subnet_cidr = "192.168.100.0/24"
+
+# =============================================
+# Node Pool Configuration
+# =============================================
+node_pool_name = "nextcloud-node-pool"
+node_flavor = "s3.large.2"
+node_count = 1
+node_max_count = 1
+node_os = "Ubuntu 20.04"
+node_root_volume_size = 100
+node_root_volume_type = "SAS"
+node_data_volume_size = 100
+node_data_volume_type = "SAS"
+
+# =============================================
+# Nextcloud Configuration
+# =============================================
+nextcloud_version = "33.0.5-apache"
+mariadb_version = "11.8"
+db_password = "CHANGE_THIS_TO_A_STRONG_PASSWORD"

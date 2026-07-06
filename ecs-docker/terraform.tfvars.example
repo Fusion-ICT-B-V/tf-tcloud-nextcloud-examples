@@ -1,0 +1,43 @@
+# =============================================
+# Sample Terraform Variables for ECS Nextcloud Deployment
+# OpenTelekomCloud T-Cloud
+# =============================================
+#
+# INSTRUCTIONS:
+# 1. Copy this file to terraform.tfvars
+# 2. Fill in your actual values
+# 3. NEVER commit terraform.tfvars to version control
+#
+# =============================================
+# OpenTelekomCloud Authentication
+# =============================================
+# Replace these with your OTC credentials
+domain_name = "YOUR_DOMAIN_ID"
+tenant_name = "YOUR_TENANT_NAME"
+enterprise_project_id = "YOUR_ENTERPRISE_PROJECT_ID"
+access_key = "YOUR_ACCESS_KEY"
+secret_key = "YOUR_SECRET_KEY"
+region = "eu-nl"
+
+# =============================================
+# Resource Naming
+# =============================================
+resource_prefix = "YOUR_PREFIX"
+
+# =============================================
+# SSH Configuration
+# =============================================
+# Replace with your public SSH key
+nc_ssh_public_key = "ssh-rsa YOUR_PUBLIC_KEY_HERE user@host"
+
+# =============================================
+# Network Configuration
+# =============================================
+nc_vpc_cidr = "192.168.0.0/16"
+nc_subnet_cidr = "192.168.100.0/24"
+
+# =============================================
+# VM Configuration
+# =============================================
+nc_vm_image = "Standard_Ubuntu_24.04_amd64_uefi_latest"
+nc_vm_flavor = "s3.large.2"
