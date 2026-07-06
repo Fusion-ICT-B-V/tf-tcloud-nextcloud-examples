@@ -27,11 +27,11 @@ Deploys Nextcloud on Kubernetes with:
 2. Copy terraform.tfvars.example to terraform.tfvars
 3. Edit terraform.tfvars with your credentials and configuration
 4. Run:
-   `bash
+   ```bash
    terraform init
    terraform plan
    terraform apply
-   `
+   ```
 
 ### ECS Docker Deployment
 
@@ -46,11 +46,11 @@ Deploys Nextcloud on a single VM with:
 2. Copy terraform.tfvars.example to terraform.tfvars
 3. Edit terraform.tfvars with your credentials and configuration
 4. Run:
-   `bash
+   ```bash
    terraform init
    terraform plan
    terraform apply
-   `
+   ```
 
 ## Configuration
 
@@ -71,9 +71,9 @@ Both projects require the following information:
 ## Cleanup
 
 To destroy all resources and avoid continued charges:
-`bash
+```bash
 terraform destroy
-`
+```
 
 ## License
 
