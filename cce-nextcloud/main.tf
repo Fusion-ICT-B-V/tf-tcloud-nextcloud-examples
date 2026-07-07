@@ -1,7 +1,6 @@
 # =============================================
 # CCE Cluster Deployment for Nextcloud POC
 # OpenTelekomCloud T-Cloud
-# Solution: Create VPC/Subnet first, then CCE cluster with explicit dependencies
 # =============================================
 
 # ------------------------
@@ -86,18 +85,8 @@ resource "opentelekomcloud_networking_secgroup_rule_v2" "cce_rule_all" {
   security_group_id = opentelekomcloud_networking_secgroup_v2.cce_secgroup.id
 }
 
-# resource "opentelekomcloud_networking_secgroup_rule_v2" "nextcloud_nodeport" {
-#   direction         = "ingress"
-#   ethertype         = "IPv4"
-#   protocol          = "tcp"
-#   port_range_min    = 30000  # NodePort range start
-#   port_range_max    = 32767  # NodePort range end
-#   remote_ip_prefix  = "0.0.0.0/0"  # Allow from anywhere
-#   security_group_id = opentelekomcloud_networking_secgroup_v2.cce_secgroup.id
-# }
-
 # =============================================
-# STEP 3: SSH Key Pair for Node Access (REQUIRED)
+# STEP 3: SSH Key Pair for Node Access
 # =============================================
 
 resource "opentelekomcloud_compute_keypair_v2" "cce_keypair" {
@@ -106,7 +95,7 @@ resource "opentelekomcloud_compute_keypair_v2" "cce_keypair" {
 }
 
 resource "opentelekomcloud_networking_floatingip_v2" "cce_cluster_fip" {
-  pool = "admin_external_net" # or your external network name
+  pool = "admin_external_net"
 }
 
 # =============================================
@@ -127,7 +116,6 @@ resource "opentelekomcloud_cce_cluster_v3" "cce_cluster" {
   eip                    = opentelekomcloud_networking_floatingip_v2.cce_cluster_fip.address
 
   depends_on = [
-    opentelekomcloud_identity_agency_v3.cce_swr_access,
     opentelekomcloud_nat_snat_rule_v2.cce_snat
   ]
 }
@@ -156,12 +144,10 @@ resource "opentelekomcloud_cce_node_pool_v3" "node_pool" {
     volumetype = var.node_data_volume_type
     size       = var.node_data_volume_size
   }
-
-  depends_on = [opentelekomcloud_identity_agency_v3.cce_swr_access]
 }
 
 # =============================================
-# STEP 6: Kubernetes / HELM Provider for CCE
+# STEP 6: Kubernetes Provider for CCE Scoping
 # =============================================
 
 provider "kubernetes" {
@@ -170,22 +156,6 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(opentelekomcloud_cce_cluster_v3.cce_cluster.certificate_clusters[0].certificate_authority_data)
   client_certificate     = base64decode(opentelekomcloud_cce_cluster_v3.cce_cluster.certificate_users[0].client_certificate_data)
   client_key             = base64decode(opentelekomcloud_cce_cluster_v3.cce_cluster.certificate_users[0].client_key_data)
-}
-
-# ==== AGENCY << need to add to documentation
-
-resource "opentelekomcloud_identity_agency_v3" "cce_swr_access" {
-  name        = "${local.name_base}-cce-swr"
-  description = "Allow CCE to access SWR for image pulls"
-
-  # Trustee: SWR service
-  delegated_domain_name = "op_svc_swr"
-
-  # Trustor: Your project with roles
-  project_role {
-    project = data.opentelekomcloud_identity_project_v3.project.name
-    roles   = ["SWR Administrator"]
-  }
 }
 
 # =============================================
@@ -236,7 +206,6 @@ resource "kubernetes_persistent_volume_claim_v1" "mysql_data" {
     }
   }
 }
-
 
 resource "random_password" "mysql_root" {
   length           = 32

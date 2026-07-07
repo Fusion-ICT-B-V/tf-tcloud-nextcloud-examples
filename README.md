@@ -81,4 +81,4 @@ MIT License
 
 ## Contributing
 
-Feel free to submit pull requests with improvements or bug fixes.
+This repo is for now just for example purposes
