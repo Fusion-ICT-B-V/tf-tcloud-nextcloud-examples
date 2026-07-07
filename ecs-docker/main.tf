@@ -1,5 +1,5 @@
 # ------------------------
-# Image Reference / Not working with Enterpise projects.. need to find out why
+# Image Reference
 # ------------------------
 
  data "opentelekomcloud_images_image_v2" "vm_image" {
@@ -41,7 +41,6 @@ resource "opentelekomcloud_vpc_subnet_v1" "subnet" {
   vpc_id     = opentelekomcloud_vpc_v1.vpc.id
   cidr       = var.nc_subnet_cidr
   gateway_ip = local.subnet_gateway
-  dns_list   = ["8.8.8.8", "8.8.4.4"]
 }
 
 # Create a Security Group
@@ -102,7 +101,6 @@ resource "opentelekomcloud_compute_instance_v2" "vm" {
    network {
      uuid = opentelekomcloud_vpc_subnet_v1.subnet.network_id
    }
-
 
   block_device {
     uuid                  = data.opentelekomcloud_images_image_v2.vm_image.id
