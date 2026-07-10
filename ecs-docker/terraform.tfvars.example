@@ -30,6 +30,11 @@ resource_prefix = "YOUR_PREFIX"
 nc_ssh_public_key = "ssh-rsa YOUR_PUBLIC_KEY_HERE user@host"
 
 # =============================================
+# IP Access
+# =============================================
+allowed_ip_prefix = "0.0.0.0/0" # << This is a risk for AIO installation. Only for testing, limit this to own range.
+
+# =============================================
 # Network Configuration
 # =============================================
 nc_vpc_cidr = "192.168.0.0/16"

@@ -49,3 +49,8 @@ variable "nc_ssh_public_key" {
   type        = string
   sensitive   = true
 }
+
+variable "allowed_ip_prefix" {
+    description = "Allowed ip-prefixes for nextcloud installation"
+    type        = string
+}
