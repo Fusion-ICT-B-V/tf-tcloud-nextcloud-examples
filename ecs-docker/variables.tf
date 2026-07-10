@@ -1,6 +1,5 @@
 variable "domain_name" {}
 variable "tenant_name" {}
-variable "enterprise_project_id" {}
 variable "access_key" {
   sensitive = true
 }

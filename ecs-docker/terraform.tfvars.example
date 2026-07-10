@@ -14,7 +14,6 @@
 # Replace these with your OTC credentials
 domain_name = "YOUR_DOMAIN_ID"
 tenant_name = "YOUR_TENANT_NAME"
-enterprise_project_id = "YOUR_ENTERPRISE_PROJECT_ID"
 access_key = "YOUR_ACCESS_KEY"
 secret_key = "YOUR_SECRET_KEY"
 region = "eu-nl"
